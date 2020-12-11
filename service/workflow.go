@@ -26,12 +26,8 @@ func (smartContract *SmartContract) setReqBody(funcName string, args []string) (
 	return
 }
 func (smartContract *SmartContract) baseFunc(funcName, orderId, customerId, name, phoneNum string, extension ...string) string {
-	var body node.TransReqDataBody
-	if len(extension) > 0 {
-		body = smartContract.setReqBody(funcName, append([]string{orderId, customerId, name, phoneNum}, extension...))
-	} else {
-		body = smartContract.setReqBody(funcName, []string{orderId, customerId, name, phoneNum})
-	}
+
+	body := smartContract.setReqBody(funcName, append([]string{orderId, customerId, name, phoneNum}, extension...))
 	resData, err := smartContract.Client.SdkTran(body)
 	if err !=nil {
 		log.Fatal(err)
